@@ -1,0 +1,27 @@
+# Core y configuración
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+python-dotenv>=1.0.1
+
+# Procesamiento documental y parseo de PDFs
+pymupdf>=1.23.0
+pdfplumber>=0.10.0
+
+# Almacenamiento vectorial y búsqueda híbrida
+chromadb>=0.4.22
+rank-bm25>=0.2.2
+
+# LLMs y Embeddings
+google-genai>=0.1.1
+openai>=1.12.0
+
+# Re-ranking
+flashrank>=0.2.0
+
+# Utilidades de CLI y visualización
+rich>=13.7.0
+typer>=0.9.0
+
+# Testing y calidad
+pytest>=8.0.0
+pytest-cov>=4.1.0

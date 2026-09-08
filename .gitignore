@@ -1,0 +1,35 @@
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode y caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configuración y secretos
+.env
+*.local
+
+# Almacenamiento local generado (Vector store e índices)
+storage/vector_store/*
+!storage/vector_store/.gitkeep
+storage/lexical_index/*
+!storage/lexical_index/.gitkeep
+
+# Datos generados/procesados
+data/processed/*
+!data/processed/.gitkeep
+data/metadata/*
+!data/metadata/.gitkeep
+
+# IDE y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
