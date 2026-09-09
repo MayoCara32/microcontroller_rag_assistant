@@ -20,10 +20,12 @@ class Settings(BaseSettings):
     STORAGE_LEXICAL_DIR: Path = BASE_DIR / "storage" / "lexical_index"
 
     # Proveedores y Modelos
+    EMBEDDING_PROVIDER: str = "google"  # 'google' o 'openai'
+    LLM_PROVIDER: str = "google"        # 'google' o 'openai'
     OPENAI_API_KEY: Optional[str] = None
     GEMINI_API_KEY: Optional[str] = None
     DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
-    DEFAULT_EMBEDDING_MODEL: str = "text-embedding-3-small"
+    DEFAULT_EMBEDDING_MODEL: str = "text-embedding-004"
 
     # Parámetros RAG
     CHUNK_SIZE: int = 800
