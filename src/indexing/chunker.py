@@ -36,7 +36,11 @@ class SemanticHardwareChunker(BaseChunker):
             if not sec_text:
                 continue
 
-            if len(sec_text) <= self.chunk_size:
+            # Preservar tablas Markdown completas si se ajustan a un margen técnico razonable
+            is_table = "|---" in sec_text or "| ---" in sec_text
+            max_limit = int(self.chunk_size * 1.5) if is_table else self.chunk_size
+
+            if len(sec_text) <= max_limit:
                 chunks.append({
                     "chunk_id": f"{file_name}_{chunk_id}",
                     "text": header_context + sec_text,
@@ -79,5 +83,19 @@ class SemanticHardwareChunker(BaseChunker):
         """Aísla tablas y encabezados Markdown (#, ##, ###) para evitar su fragmentación abrupta."""
         # Dividir por encabezados de Markdown o divisores de página
         pattern = r'(?=\n#{1,4}\s+|\n---\s+Página\s+\d+)'
-        sections = re.split(pattern, content)
-        return [s for s in sections if s.strip()]
+        raw_sections = [s.strip() for s in re.split(pattern, content) if s.strip()]
+
+        # Unir encabezados huérfanos sin cuerpo con la siguiente sección
+        sections = []
+        i = 0
+        while i < len(raw_sections):
+            curr = raw_sections[i]
+            lines = [l.strip() for l in curr.splitlines() if l.strip()]
+            if len(lines) == 1 and lines[0].startswith("#") and i + 1 < len(raw_sections):
+                sections.append(curr + "\n\n" + raw_sections[i + 1])
+                i += 2
+            else:
+                sections.append(curr)
+                i += 1
+
+        return sections
