@@ -1,27 +1,38 @@
-# Core y configuración
+# =============================================================================
+# DEPENDENCIAS ACTIVAS - PIPELINE DÍA 12
+# =============================================================================
+
+# Core y Configuración
 pydantic>=2.6.0
 pydantic-settings>=2.2.0
 python-dotenv>=1.0.1
 
-# Procesamiento documental y parseo de PDFs
+# Procesamiento Documental y Parseo de PDFs
 pymupdf>=1.23.0
 pdfplumber>=0.10.0
 
-# Almacenamiento vectorial y búsqueda híbrida
+# Almacenamiento Vectorial Local
 chromadb>=0.4.22
-rank-bm25>=0.2.2
 
-# LLMs y Embeddings
+# Embeddings (Google Gemini API)
 google-genai>=0.1.1
-openai>=1.12.0
 
-# Re-ranking
-flashrank>=0.2.0
-
-# Utilidades de CLI y visualización
+# CLI y Presentación Didáctica
 rich>=13.7.0
 typer>=0.9.0
 
-# Testing y calidad
+# Testing y Verificación
 pytest>=8.0.0
 pytest-cov>=4.1.0
+
+# =============================================================================
+# DEPENDENCIAS RESERVADAS PARA COMPONENTES FUTUROS (DÍA 13+)
+# =============================================================================
+# Proveedor alternativo de embeddings/LLM
+openai>=1.12.0
+
+# Búsqueda léxica (Hybrid Search BM25)
+rank-bm25>=0.2.2
+
+# Re-ranking (Cross-Encoder / FlashRank)
+flashrank>=0.2.0

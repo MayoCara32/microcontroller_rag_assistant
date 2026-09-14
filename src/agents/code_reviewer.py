@@ -1,4 +1,7 @@
-"""Especialista en revisión y corrección de firmware embebido."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Especialista en revisión y corrección de firmware embebido.
+No participa en el pipeline activo de Día 12.
+"""
 from typing import Dict, Any, List
 from src.core.interfaces import BaseAgent
 

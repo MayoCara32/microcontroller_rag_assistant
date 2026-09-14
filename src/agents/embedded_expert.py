@@ -1,4 +1,7 @@
-"""Especialista en hardware, microcontroladores, electrónica y periféricos."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Especialista en hardware, microcontroladores, electrónica y periféricos.
+No participa en el pipeline activo de Día 12.
+"""
 from typing import Dict, Any, List
 from src.core.interfaces import BaseAgent
 

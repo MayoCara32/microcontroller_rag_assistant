@@ -1,4 +1,7 @@
-"""Auditor de respuestas generadas contra la evidencia documental recuperada."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Auditor de respuestas generadas contra la evidencia documental recuperada.
+No participa en el pipeline activo de Día 12.
+"""
 from typing import Dict, Any, List
 
 

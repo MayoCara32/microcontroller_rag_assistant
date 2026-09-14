@@ -1,4 +1,7 @@
-"""Reordenamiento contextual de alta precisión mediante FlashRank / Cross-Encoder."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Reordenamiento contextual de alta precisión mediante FlashRank / Cross-Encoder.
+No participa en el pipeline activo de Día 12.
+"""
 from typing import List, Dict, Any
 
 

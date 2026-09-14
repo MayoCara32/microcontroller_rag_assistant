@@ -1,4 +1,7 @@
-"""Motor de búsqueda híbrida combinando similitud densa y BM25 léxico."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Motor de búsqueda híbrida combinando similitud densa y BM25 léxico.
+No participa en el pipeline activo de Día 12.
+"""
 import re
 from typing import List, Dict, Any, Optional
 from rank_bm25 import BM25Okapi

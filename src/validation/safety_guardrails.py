@@ -1,4 +1,7 @@
-"""Comprobaciones deterministas de límites eléctricos y riesgos físicos de hardware."""
+"""[COMPONENTE AISLADO - RESERVADO PARA DÍA 13+]
+Comprobaciones deterministas de límites eléctricos y riesgos físicos de hardware.
+No participa en el pipeline activo de Día 12.
+"""
 import re
 from typing import Dict, Any, List
 

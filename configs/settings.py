@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Configuraciones globales del Asistente RAG para Microcontroladores."""
+    """Configuraciones globales del Asistente RAG para Microcontroladores (Día 12)."""
 
     # Raíz del proyecto
     BASE_DIR: Path = Path(__file__).resolve().parent.parent
@@ -19,23 +19,27 @@ class Settings(BaseSettings):
     STORAGE_VECTOR_DIR: Path = BASE_DIR / "storage" / "vector_store"
     STORAGE_LEXICAL_DIR: Path = BASE_DIR / "storage" / "lexical_index"
 
-    # Proveedores y Modelos
-    EMBEDDING_PROVIDER: str = "google"  # 'google' o 'openai'
-    LLM_PROVIDER: str = "google"        # 'google' o 'openai'
-    OPENAI_API_KEY: Optional[str] = None
+    # Proveedor y Modelo de Embeddings (Día 12)
+    EMBEDDING_PROVIDER: str = "google"
+    DEFAULT_EMBEDDING_MODEL: str = "gemini-embedding-001"
+    EMBEDDING_DIMENSION: int = 768
     GEMINI_API_KEY: Optional[str] = None
-    DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
-    DEFAULT_EMBEDDING_MODEL: str = "text-embedding-004"
 
-    # Parámetros RAG
+    # Control de seguridad de pruebas: en producción debe ser False
+    ALLOW_TEST_EMBEDDINGS: bool = False
+
+    # Parámetros de Fragmentación (Chunking) y Recuperación
     CHUNK_SIZE: int = 800
     CHUNK_OVERLAP: int = 150
-    TOP_K_RETRIEVAL: int = 10
+    TOP_K_RETRIEVAL: int = 5
+
+    # Parámetros y modelos reservados para fases futuras (Día 13+)
+    LLM_PROVIDER: str = "google"
+    OPENAI_API_KEY: Optional[str] = None
+    DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
     TOP_K_RERANKED: int = 5
     SIMILARITY_THRESHOLD: float = 0.75
-    HYBRID_ALPHA: float = 0.5  # Peso asignado a búsqueda densa vs léxica
-
-    # Reglas y Seguridad
+    HYBRID_ALPHA: float = 0.5
     ENFORCE_STRICT_ELECTRICAL_CHECK: bool = True
     ENFORCE_CITATION_VALIDATION: bool = True
 

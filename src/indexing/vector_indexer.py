@@ -2,13 +2,12 @@
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import chromadb
-from chromadb.config import Settings as ChromaSettings
 from configs.settings import get_settings
 from src.core.interfaces import BaseVectorIndexer
 
 
 class VectorIndexer(BaseVectorIndexer):
-    """Indexa chunks procesados y gestiona colecciones en ChromaDB."""
+    """Indexa chunks procesados y gestiona colecciones persistentes en ChromaDB."""
 
     def __init__(self, storage_dir: Optional[Path] = None, collection_name: str = "microcontrollers_kb"):
         settings = get_settings()
@@ -17,23 +16,30 @@ class VectorIndexer(BaseVectorIndexer):
         self.collection_name = collection_name
 
         self.client = chromadb.PersistentClient(path=str(self.storage_dir))
-        self.collection = self.client.get_or_create_collection(name=self.collection_name)
+        self.collection = self.client.get_or_create_collection(
+            name=self.collection_name,
+            metadata={"description": "Microcontroller technical documentation embeddings (Day 12)"}
+        )
 
     def index_documents(self, chunks: List[Dict[str, Any]], embeddings: List[List[float]]) -> None:
-        """Implementación de la interfaz BaseVectorIndexer."""
+        """Almacena fragmentos y sus correspondientes vectores en ChromaDB."""
         if not chunks or not embeddings:
             return
 
-        ids = [c.get("chunk_id", f"chunk_{i}") for i, c in enumerate(chunks)]
-        documents = [c.get("text", "") for c in chunks]
-        metadatas = [
-            {
-                "file_name": c.get("file_name", ""),
-                "category": c.get("category", ""),
-                "component": c.get("component", "")
-            }
-            for c in chunks
-        ]
+        ids = [str(c.get("chunk_id", f"chunk_{i}")) for i, c in enumerate(chunks)]
+        documents = [str(c.get("text", "")) for c in chunks]
+
+        metadatas = []
+        for c in chunks:
+            meta = {}
+            for k, v in c.items():
+                if k in ["chunk_id", "text", "raw_text"]:
+                    continue
+                if isinstance(v, (str, int, float, bool)):
+                    meta[k] = v
+                elif isinstance(v, list):
+                    meta[k] = ", ".join(str(item) for item in v)
+            metadatas.append(meta)
 
         self.collection.upsert(
             ids=ids,
@@ -42,8 +48,13 @@ class VectorIndexer(BaseVectorIndexer):
             metadatas=metadatas
         )
 
-    def search(self, query_embedding: List[float], top_k: int = 10, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
-        """Implementación de la interfaz BaseVectorIndexer."""
+    def search(
+        self,
+        query_embedding: List[float],
+        top_k: int = 5,
+        filters: Optional[Dict[str, Any]] = None
+    ) -> List[Dict[str, Any]]:
+        """Ejecuta una búsqueda vectorial k-NN y reporta distancias métricas L2 explícitas."""
         if not query_embedding:
             return []
 
@@ -67,7 +78,9 @@ class VectorIndexer(BaseVectorIndexer):
                     "chunk_id": i,
                     "text": d,
                     "metadata": m,
-                    "score": 1.0 / (1.0 + dist)  # Convertir distancia L2 a score de similitud
+                    "distance": float(dist),
+                    # Documentación: transformación inversa monótona solo como referencia de proximidad
+                    "score": 1.0 / (1.0 + float(dist))
                 })
 
         return retrieved

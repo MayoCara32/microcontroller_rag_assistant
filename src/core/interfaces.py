@@ -1,4 +1,4 @@
-"""Definición de interfaces abstractas para la arquitectura desacoplada de Microcontrollers AI Copilot."""
+"""Definición de interfaces abstractas para la arquitectura desacoplada de Microcontroller RAG Assistant."""
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Dict, List, Any, Optional
@@ -35,14 +35,22 @@ class BaseEmbedder(ABC):
     """Interfaz base para generadores de vectores de características."""
 
     @abstractmethod
-    def get_embeddings(self, texts: List[str]) -> List[List[float]]:
-        """Genera embeddings vectoriales para una lista de textos."""
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        """Genera embeddings vectoriales para fragmentos documentales (task_type=RETRIEVAL_DOCUMENT)."""
         pass
 
     @abstractmethod
-    def get_query_embedding(self, query: str) -> List[float]:
-        """Genera el embedding vectorial para una consulta de búsqueda."""
+    def embed_query(self, query: str) -> List[float]:
+        """Genera el embedding vectorial para una consulta de búsqueda (task_type=RETRIEVAL_QUERY)."""
         pass
+
+    def get_embeddings(self, texts: List[str]) -> List[List[float]]:
+        """Alias retrocompatible para embed_documents."""
+        return self.embed_documents(texts)
+
+    def get_query_embedding(self, query: str) -> List[float]:
+        """Alias retrocompatible para embed_query."""
+        return self.embed_query(query)
 
 
 class BaseVectorIndexer(ABC):
@@ -54,8 +62,8 @@ class BaseVectorIndexer(ABC):
         pass
 
     @abstractmethod
-    def search(self, query_embedding: List[float], top_k: int = 10, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
-        """Ejecuta una búsqueda vectorial k-NN."""
+    def search(self, query_embedding: List[float], top_k: int = 5, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """Ejecuta una búsqueda vectorial k-NN devolviendo candidatos con distancias."""
         pass
 
 
@@ -63,7 +71,7 @@ class BaseRetriever(ABC):
     """Interfaz base para estrategias de búsqueda (densa, léxica o híbrida)."""
 
     @abstractmethod
-    def retrieve(self, query: str, top_k: int = 10, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+    def retrieve(self, query: str, top_k: int = 5, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         """Recupera los fragmentos más relevantes para una consulta dada."""
         pass
 

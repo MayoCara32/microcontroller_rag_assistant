@@ -1,7 +1,7 @@
 """Extractor estructural de PDFs y manuales técnicos."""
 from pathlib import Path
 from typing import Dict, List, Any
-import fitz  # PyMuPDF
+import pymupdf as fitz
 from src.core.interfaces import BaseParser
 
 
