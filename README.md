@@ -20,32 +20,24 @@ Su propósito fundamental es permitir a ingenieros y desarrolladores consultar d
 
 ---
 
-## Arquitectura Actual (Día 12)
+## Arquitectura RAG
 
-El pipeline implementado y activo corresponde estrictamente a la fase de **ingesta documental y recuperación semántica vectorial**:
+El sistema implementa el ciclo completo de Generación Aumentada por Recuperación (RAG):
 
 ```text
-PDF / Documentos Técnicos
-          ↓
-     Extracción
-          ↓
-      Limpieza
-          ↓
-     Metadatos
-          ↓
-      Chunking
-          ↓
-      Overlap
-          ↓
-Document Embeddings (gemini-embedding-001, RETRIEVAL_DOCUMENT, 768d)
-          ↓
-      ChromaDB
-          ↓
- Query Embedding (gemini-embedding-001, RETRIEVAL_QUERY, 768d)
-          ↓
-  Semantic Search
-          ↓
-    Top-K Chunks
+Usuario
+   ↓
+Pregunta
+   ↓
+Retrieval (ChromaDB + gemini-embedding-001)
+   ↓
+Top-K Chunks Recuperados
+   ↓
+Context Builder (Estructuración y Fuentes)
+   ↓
+Gemini API (gemini-2.0-flash / google-genai)
+   ↓
+Respuesta Generada y Fundamentada
 ```
 
 ---
@@ -99,12 +91,19 @@ Indexa los documentos en ChromaDB ejecutando:
 python src/api/cli.py ingest
 ```
 
-### 8. Ejecutar búsqueda semántica
-Puedes probar consultas interactivas mediante el script didáctico de Día 12:
+### 8. Ejecutar Asistente en Modo CHAT (RAG con Gemini)
+Inicia la terminal interactiva de consultas con generación de respuestas fundamentadas:
 ```bash
-python scripts/day12_semantic_search.py
+python src/cli_chat.py
 ```
-O directamente mediante la CLI:
+
+Para inspeccionar los chunks recuperados, distancias y el prompt enviado a Gemini sin exponer credenciales:
+```bash
+python src/cli_chat.py --debug
+```
+
+### 9. Opcional: Búsqueda vectorial sin generación
+Puedes probar consultas directas solo en ChromaDB:
 ```bash
 python src/api/cli.py query "¿Cuál es el voltaje de alimentación del ATmega328P?" --top-k 5
 ```
@@ -113,11 +112,11 @@ python src/api/cli.py query "¿Cuál es el voltaje de alimentación del ATmega32
 
 ## Estado del Curso
 
-* **Actualmente implementado:**  
-  `Vector Search / Retrieval básico` (Extracción, Limpieza, Metadatos, Chunking con Overlap continuo, Embeddings diferenciados en 768 dimensiones, Persistencia en ChromaDB y Búsqueda Semántica Top-K).
+* **Actualmente implementado (Día 12 & 13):**  
+  * `Vector Search / Retrieval básico`: Ingesta, limpieza, metadatos, chunking con overlap continuo, embeddings de 768 dimensiones y búsqueda k-NN en ChromaDB.
+  * `Modo CHAT RAG con Gemini`: Cliente oficial `google-genai`, constructor estructurado de prompts, generador de respuestas fundamentadas con fuentes y CLI interactiva con soporte `--debug`.
 
-* **Próximas etapas (Día 13+):**  
-  * Síntesis de respuesta final aumentada con Gemini (`Hardware Expert`).
+* **Próximas etapas:**  
   * Búsqueda híbrida léxico-semántica con BM25 (`HybridSearchEngine`).
   * Re-ranking de alta precisión mediante Cross-Encoder (`CrossEncoderReranker`).
   * Guardrails de seguridad eléctrica deterministas (`ElectricalSafetyGuardrails`).

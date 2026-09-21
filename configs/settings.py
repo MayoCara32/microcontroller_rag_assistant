@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     DEFAULT_EMBEDDING_MODEL: str = "gemini-embedding-001"
     EMBEDDING_DIMENSION: int = 768
     GEMINI_API_KEY: Optional[str] = None
+    GOOGLE_API_KEY: Optional[str] = None
 
     # Control de seguridad de pruebas: en producción debe ser False
     ALLOW_TEST_EMBEDDINGS: bool = False
@@ -33,15 +34,26 @@ class Settings(BaseSettings):
     CHUNK_OVERLAP: int = 150
     TOP_K_RETRIEVAL: int = 5
 
-    # Parámetros y modelos reservados para fases futuras (Día 13+)
+    # Parámetros de Generación LLM (Día 13)
     LLM_PROVIDER: str = "google"
     OPENAI_API_KEY: Optional[str] = None
     DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: Optional[str] = None
     TOP_K_RERANKED: int = 5
     SIMILARITY_THRESHOLD: float = 0.75
     HYBRID_ALPHA: float = 0.5
     ENFORCE_STRICT_ELECTRICAL_CHECK: bool = True
     ENFORCE_CITATION_VALIDATION: bool = True
+
+    @property
+    def resolved_gemini_api_key(self) -> Optional[str]:
+        """Resuelve la clave de API priorizando GEMINI_API_KEY y luego GOOGLE_API_KEY."""
+        return self.GEMINI_API_KEY or self.GOOGLE_API_KEY
+
+    @property
+    def resolved_llm_model(self) -> str:
+        """Resuelve el modelo LLM priorizando GEMINI_MODEL y luego DEFAULT_LLM_MODEL."""
+        return self.GEMINI_MODEL or self.DEFAULT_LLM_MODEL
 
     model_config = SettingsConfigDict(
         env_file=".env",

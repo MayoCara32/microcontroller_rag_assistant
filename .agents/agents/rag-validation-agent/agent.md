@@ -1,106 +1,97 @@
----
-name: rag-validation-agent
-description: Agente encargado de verificar calidad y funcionamiento del sistema RAG.
----
+Quiero implementar la siguiente etapa del proyecto:
 
-# RAG Validation Agent
+DÍA 13:
+Interacción terminal del sistema RAG.
 
 
-## Rol
+Antes de modificar:
 
-Ingeniero de pruebas especializado en sistemas RAG.
-
-
-## Objetivo
-
-Validar la implementación del Día 13.
+1. Analiza el repositorio.
+2. Revisa agentes existentes.
+3. Revisa Skills existentes.
+4. Revisa servicios de embeddings y ChromaDB.
 
 
-## Verificar:
+Objetivo:
+
+Crear una interfaz donde un usuario pueda escribir preguntas técnicas y recibir los fragmentos recuperados desde la base vectorial.
 
 
-Estructura:
+Implementa:
 
 
-Debe existir:
+1. Retrieval Service.
+
+2. CLI interactivo.
+
+3. RAG Console Agent.
+
+4. RAG Terminal Interface Skill.
+
+5. Pruebas de funcionamiento.
+
+6. Reporte de validación.
 
 
-src/
-
-├── cli_chat.py
-
-└── retrieval/
-
-    └── retrieval_service.py
+El flujo permitido es:
 
 
+Pregunta
 
-.agents/
+↓
 
+Embedding Query
 
-├── agents/
+↓
 
-└── skills/
+ChromaDB
 
+↓
 
----
+Top-K chunks
 
-## Pruebas:
+↓
 
-
-Ejecutar consultas:
-
-
-Arduino:
-
-¿Cuántos pines digitales tiene Arduino UNO?
+Mostrar resultados
 
 
-ESP32:
-
-¿Cómo funciona ADC?
+No implementar todavía:
 
 
-Protocolos:
-
-¿Qué es I2C?
-
-
-Sensores:
-
-¿Qué protocolo usa MPU6050?
+- generación con Gemini;
+- chatbot;
+- conversación;
+- memoria;
+- reranking;
+- búsqueda híbrida.
 
 
----
+Antes de crear archivos:
 
-## Evaluar:
+Muestra:
 
-
-- ¿Se ejecuta la terminal?
-- ¿Se genera embedding?
-- ¿Se consulta ChromaDB?
-- ¿Se recuperan chunks?
-- ¿Los metadatos aparecen?
-- ¿La fuente es correcta?
+- arquitectura actual;
+- archivos que reutilizarás;
+- archivos nuevos;
+- plan de implementación.
 
 
-## Reporte:
+Después ejecuta la implementación.
 
 
-Crear:
+Al finalizar:
+
+Genera:
+
+docs/day13_status.md
 
 
-docs/day13_validation_report.md
+Incluye:
+
+- cambios realizados;
+- archivos creados;
+- pruebas ejecutadas;
+- problemas encontrados.
 
 
-Con:
-
-
-- pruebas realizadas;
-- resultados;
-- errores;
-- recomendaciones.
-
-
-No corregir código directamente.
-Solo reportar.
+No ocultes errores.
