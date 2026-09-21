@@ -64,11 +64,13 @@ class HybridSearchEngine(BaseRetriever):
                     bm25_results.append({
                         "chunk_id": self.corpus_chunks[idx].get("chunk_id", f"bm25_{idx}"),
                         "text": self.corpus_chunks[idx].get("text", ""),
-                        "metadata": {
+                        "metadata": self.corpus_chunks[idx].get("metadata") or {
                             "file_name": self.corpus_chunks[idx].get("file_name", ""),
                             "category": self.corpus_chunks[idx].get("category", "")
                         },
-                        "score": float(scores[idx]) if scores[idx] > 0 else 0.1
+                        "score": float(scores[idx]) if scores[idx] > 0 else 0.1,
+                        "distance": 0.0,
+                        "distancia": 0.0
                     })
 
         # 3. Reciprocal Rank Fusion (RRF)
@@ -82,7 +84,8 @@ class HybridSearchEngine(BaseRetriever):
 
         for rank, item in enumerate(bm25_results):
             cid = item["chunk_id"]
-            chunks_by_id[cid] = item
+            if cid not in chunks_by_id:
+                chunks_by_id[cid] = item
             rrf_scores[cid] = rrf_scores.get(cid, 0.0) + ((1.0 - self.alpha) / (60.0 + rank + 1))
 
         sorted_ids = sorted(rrf_scores.keys(), key=lambda cid: rrf_scores[cid], reverse=True)

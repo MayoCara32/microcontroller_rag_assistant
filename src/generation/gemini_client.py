@@ -11,6 +11,7 @@ class GeminiClient:
         self,
         api_key: Optional[str] = None,
         model_name: Optional[str] = None,
+        temperature: Optional[float] = None,
         client: Optional[Any] = None
     ):
         settings = get_settings()
@@ -24,6 +25,11 @@ class GeminiClient:
             model_name
             if model_name is not None
             else (settings.resolved_llm_model or os.environ.get("GEMINI_MODEL") or os.environ.get("MODEL_NAME") or "gemini-2.0-flash")
+        )
+        self.temperature = (
+            temperature
+            if temperature is not None
+            else settings.resolved_temperature
         )
 
         if client is not None:
@@ -44,7 +50,12 @@ class GeminiClient:
         except Exception as e:
             raise RuntimeError(f"Error al inicializar cliente genai.Client: {str(e)}") from e
 
-    def generate(self, prompt: str, model: Optional[str] = None) -> str:
+    def generate(
+        self,
+        prompt: str,
+        model: Optional[str] = None,
+        temperature: Optional[float] = None
+    ) -> str:
         """Envía un prompt a Gemini y retorna el texto de la respuesta generada.
 
         Lanza excepciones explícitas si ocurre un error de red, autenticación o respuesta vacía.
@@ -53,11 +64,15 @@ class GeminiClient:
             raise ValueError("El prompt no puede estar vacío.")
 
         target_model = model or self.model_name
+        target_temp = temperature if temperature is not None else self.temperature
 
         try:
+            from google.genai import types
+            config = types.GenerateContentConfig(temperature=target_temp)
             response = self.client.models.generate_content(
                 model=target_model,
-                contents=prompt
+                contents=prompt,
+                config=config
             )
         except Exception as e:
             raise RuntimeError(

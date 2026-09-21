@@ -10,6 +10,7 @@ class PromptBuilder:
     RULES = (
         "- Responde únicamente utilizando el contexto proporcionado.\n"
         "- No inventes información.\n"
+        "- Si el contexto contiene información desglosada relevante para la pregunta (por ejemplo, número de pines digitales, canales analógicos ADC, conectores o buses), detalla y enumera la información técnica disponible.\n"
         "- Si la información no aparece en el contexto, indícalo explícitamente.\n"
         "- Mantén precisión técnica."
     )

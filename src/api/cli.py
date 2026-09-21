@@ -66,7 +66,7 @@ def ingest(
 
     console.print("Almacenando en base vectorial ChromaDB...")
     vector_indexer.index_documents(all_chunks, embeddings)
-    console.print(f"[bold green]✔ Ingesta completada con éxito: {len(all_chunks)} chunks indexados en ChromaDB.[/bold green]")
+    console.print(f"[bold green][OK] Ingesta completada con éxito: {len(all_chunks)} chunks indexados en ChromaDB.[/bold green]")
 
 
 @app.command()

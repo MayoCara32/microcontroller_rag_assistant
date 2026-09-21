@@ -42,6 +42,24 @@ def test_gemini_client_generate_success():
     mock_genai_client.models.generate_content.assert_called_once()
 
 
+def test_temperature_configuration_and_passing():
+    """Valida que la temperatura por defecto sea 0.95 y se transmita a GenerateContentConfig."""
+    mock_genai_client = MagicMock()
+    mock_response = MagicMock()
+    mock_response.text = "Respuesta con temp 0.95"
+    mock_genai_client.models.generate_content.return_value = mock_response
+
+    client = GeminiClient(api_key="fake-key", client=mock_genai_client)
+    assert client.temperature == 0.95
+
+    client.generate("Pregunta")
+    call_args = mock_genai_client.models.generate_content.call_args
+    assert call_args is not None
+    config = call_args.kwargs.get("config")
+    assert config is not None
+    assert config.temperature == 0.95
+
+
 def test_gemini_client_handles_api_error():
     """Valida que GeminiClient propague RuntimeError sin ocultar errores de API."""
     mock_genai_client = MagicMock()

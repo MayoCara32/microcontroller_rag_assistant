@@ -76,6 +76,7 @@ def display_debug_info(
 
     print(f"\nCONTEXTO ENVIADO A GEMINI:\n{gen_result.get('context', '(Vacío)')}\n")
     print(f"MODELO UTILIZADO:\n{gen_result.get('model', 'Desconocido')}\n")
+    print(f"TEMPERATURA:\n{gen_result.get('temperature', '0.95')}\n")
     print(f"RESPUESTA:\n{gen_result.get('answer', '')}\n")
     print("=" * 40 + "\n")
 

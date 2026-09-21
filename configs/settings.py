@@ -32,13 +32,15 @@ class Settings(BaseSettings):
     # Parámetros de Fragmentación (Chunking) y Recuperación
     CHUNK_SIZE: int = 800
     CHUNK_OVERLAP: int = 150
-    TOP_K_RETRIEVAL: int = 5
+    TOP_K_RETRIEVAL: int = 8
 
     # Parámetros de Generación LLM (Día 13)
     LLM_PROVIDER: str = "google"
     OPENAI_API_KEY: Optional[str] = None
     DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
     GEMINI_MODEL: Optional[str] = None
+    DEFAULT_TEMPERATURE: float = 0.95
+    TEMPERATURE: Optional[float] = None
     TOP_K_RERANKED: int = 5
     SIMILARITY_THRESHOLD: float = 0.75
     HYBRID_ALPHA: float = 0.5
@@ -55,8 +57,13 @@ class Settings(BaseSettings):
         """Resuelve el modelo LLM priorizando GEMINI_MODEL y luego DEFAULT_LLM_MODEL."""
         return self.GEMINI_MODEL or self.DEFAULT_LLM_MODEL
 
+    @property
+    def resolved_temperature(self) -> float:
+        """Resuelve la temperatura priorizando TEMPERATURE y luego DEFAULT_TEMPERATURE."""
+        return self.TEMPERATURE if self.TEMPERATURE is not None else self.DEFAULT_TEMPERATURE
+
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=Path(__file__).resolve().parent.parent / ".env",
         env_file_encoding="utf-8",
         extra="ignore"
     )

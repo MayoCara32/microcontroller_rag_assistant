@@ -8,21 +8,52 @@ from src.retrieval.dense_retriever import DenseRetriever
 
 
 class RetrievalService:
-    """Encapsula la recepción de consultas, generación de embeddings y búsqueda en ChromaDB."""
+    """Encapsula la recepción de consultas, generación de embeddings y búsqueda híbrida (semántica y vectorial) en ChromaDB."""
 
     def __init__(
         self,
         embedder: Optional[EmbeddingService] = None,
         vector_indexer: Optional[VectorIndexer] = None,
-        retriever: Optional[DenseRetriever] = None
+        retriever: Optional[Any] = None,
+        use_hybrid: bool = True
     ):
         self.settings = get_settings()
+        self.embedder = embedder or EmbeddingService()
+        self.vector_indexer = vector_indexer or VectorIndexer()
+        self.use_hybrid = use_hybrid
+
         if retriever is not None:
             self.retriever = retriever
+        elif use_hybrid:
+            from src.retrieval.hybrid_search import HybridSearchEngine
+            hybrid_engine = HybridSearchEngine(
+                vector_indexer=self.vector_indexer,
+                embedder=self.embedder,
+                alpha=self.settings.HYBRID_ALPHA
+            )
+            # Sincronizar índice léxico BM25 con los fragmentos de la base vectorial
+            try:
+                all_data = self.vector_indexer.collection.get()
+                if all_data and all_data.get("ids"):
+                    corpus = []
+                    for cid, doc, meta in zip(
+                        all_data["ids"],
+                        all_data["documents"],
+                        all_data.get("metadatas") or [{}] * len(all_data["ids"])
+                    ):
+                        corpus.append({
+                            "chunk_id": cid,
+                            "text": doc,
+                            "file_name": (meta or {}).get("file_name", ""),
+                            "category": (meta or {}).get("category", ""),
+                            "metadata": meta or {}
+                        })
+                    hybrid_engine.fit_lexical_index(corpus)
+            except Exception:
+                pass
+            self.retriever = hybrid_engine
         else:
-            emb = embedder or EmbeddingService()
-            vec = vector_indexer or VectorIndexer()
-            self.retriever = DenseRetriever(embedder=emb, vector_indexer=vec)
+            self.retriever = DenseRetriever(embedder=self.embedder, vector_indexer=self.vector_indexer)
 
     def search(
         self,
@@ -37,6 +68,7 @@ class RetrievalService:
         - texto: contenido textual del fragmento
         - metadata: diccionarios con metadatos asociados
         - distancia: distancia L2 respecto a la consulta
+        - score: score normalizado o fused_score
         """
         if not query or not query.strip():
             return []
@@ -49,11 +81,12 @@ class RetrievalService:
                 "Ejecute primero el pipeline de indexación para generar los vectores."
             )
 
-        # 2. Ejecutar la recuperación a través del DenseRetriever
+        # 2. Ejecutar la recuperación a través del Retriever
+        k = top_k or self.settings.TOP_K_RETRIEVAL
         try:
             raw_results = self.retriever.retrieve(
                 query=query.strip(),
-                top_k=top_k,
+                top_k=k,
                 filters=filters
             )
         except Exception as e:
@@ -68,6 +101,7 @@ class RetrievalService:
             texto = item.get("text") or item.get("texto", "")
             metadata = item.get("metadata", {})
             distancia = item.get("distance") if "distance" in item else item.get("distancia", 0.0)
+            score = item.get("fused_score") or item.get("score") or (1.0 / (1.0 + float(distancia)))
 
             formatted_results.append({
                 "chunk_id": chunk_id,
@@ -75,7 +109,8 @@ class RetrievalService:
                 "text": texto,  # alias retrocompatible
                 "metadata": metadata,
                 "distancia": float(distancia),
-                "distance": float(distancia)  # alias retrocompatible
+                "distance": float(distancia),  # alias retrocompatible
+                "score": float(score)
             })
 
         return formatted_results
