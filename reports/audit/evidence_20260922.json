@@ -1,0 +1,122 @@
+{
+  "scope": "Offline; SQLite read-only; isolated probes; no API calls",
+  "inventory": {
+    "raw_pdfs": 19,
+    "processed_documents": 4
+  },
+  "collections": [
+    [
+      "microcontrollers_kb",
+      768
+    ]
+  ],
+  "indexed_chunks": 94,
+  "indexed_documents": [
+    [
+      "A000066-datasheet.pdf",
+      12
+    ],
+    [
+      "A000067-datasheet.pdf",
+      18
+    ],
+    [
+      "esp32_datasheet_en.pdf",
+      32
+    ],
+    [
+      "kb-canbus-en.md",
+      32
+    ]
+  ],
+  "metadata_keys": [
+    "category",
+    "chroma:document",
+    "component",
+    "family",
+    "file_name",
+    "interfaces",
+    "issues_found",
+    "keywords",
+    "manufacturer",
+    "processed_file",
+    "sku",
+    "topics",
+    "type",
+    "document_version",
+    "power_domains",
+    "power_modes",
+    "process_node",
+    "security",
+    "variants"
+  ],
+  "env_file_non_secret_values": {
+    "EMBEDDING_PROVIDER": "google",
+    "DEFAULT_EMBEDDING_MODEL": "gemini-embedding-001",
+    "EMBEDDING_DIMENSION": "768",
+    "ALLOW_TEST_EMBEDDINGS": "false",
+    "CHUNK_SIZE": "800",
+    "CHUNK_OVERLAP": "150",
+    "TOP_K_RETRIEVAL": "5",
+    "DEFAULT_LLM_MODEL": "gemini-3.6-flash"
+  },
+  "current_pipeline_vs_stored_text": [
+    {
+      "file": "A000066-datasheet.md",
+      "fresh_chunks": 12,
+      "matching_id_and_text": 12
+    },
+    {
+      "file": "A000067-datasheet.md",
+      "fresh_chunks": 18,
+      "matching_id_and_text": 18
+    },
+    {
+      "file": "kb-canbus-en.md",
+      "fresh_chunks": 32,
+      "matching_id_and_text": 32
+    },
+    {
+      "file": "esp32_datasheet_en.md",
+      "fresh_chunks": 32,
+      "matching_id_and_text": 32
+    }
+  ],
+  "probes": {
+    "numeric_line_removed": {
+      "input": "Parámetro\nValor\n16\nUnidad\nMHz",
+      "output": "Parámetro\nValor\n\nUnidad\nMHz",
+      "observed": true
+    },
+    "contradictory_claim_accepted": {
+      "valid": true,
+      "confidence": 0.95
+    },
+    "lexical_filter_leak": {
+      "requested_category": "ESP32",
+      "returned": [
+        {
+          "chunk_id": "arduino_fixture",
+          "text": "Arduino PWM",
+          "metadata": {
+            "category": "Arduino"
+          },
+          "score": 1.0,
+          "distance": 0.0,
+          "distancia": 0.0,
+          "fused_score": 0.00819672131147541
+        }
+      ],
+      "scoring": "mock BM25 score=1; dense results empty"
+    },
+    "empty_chunk_calls_generator": {
+      "calls": 1,
+      "context": "--- Documento [1]: empty.md (Categoría: General) ---\n"
+    },
+    "long_table_loses_column_context": {
+      "chunks": 5,
+      "without_column_header": 4
+    }
+  },
+  "syntax_files_checked": 52
+}

@@ -1,70 +1,55 @@
 {
-  "document": "A000066-datasheet.md",
-  "raw_path": "data/processed/arduino/A000066-datasheet.md",
-  "total_chunks": 12,
-  "model": "text-embedding-004",
-  "provider": "google",
-  "dimension": 768,
-  "chunks_detail": [
+  "timestamp": 1790193732.860786,
+  "total_new_chunks_session": 104,
+  "final_chroma_count": 286,
+  "new_documents": [
     {
-      "id": "A000066-datasheet.pdf_0",
-      "length": 807,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Información general  - **Nombre del componente:** Arduino® UNO R3 - "
+      "file_name": "esp32_technical_reference_manual_en.pdf",
+      "category": "ESP32",
+      "component": "ESP32 SoC",
+      "chunks_count": 18
     },
     {
-      "id": "A000066-datasheet.pdf_1",
-      "length": 556,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] tura AVR® RISC) - **Memoria del coprocesador USB:**  - Flash: 16 kB IS"
+      "file_name": "UM10204.pdf",
+      "category": "Protocolos",
+      "component": "I2C-bus Specification (UM10204)",
+      "chunks_count": 14
     },
     {
-      "id": "A000066-datasheet.pdf_2",
-      "length": 818,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Características eléctricas  - **Voltaje de alimentación por pad/pin "
+      "file_name": "modbusprotocolspecification.pdf",
+      "category": "Protocolos",
+      "component": "MODBUS Application Protocol V1.1b3",
+      "chunks_count": 8
     },
     {
-      "id": "A000066-datasheet.pdf_3",
-      "length": 330,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] extremas, la memoria EEPROM, el regulador de voltaje y el oscilador de"
+      "file_name": "sboa621.pdf",
+      "category": "Protocolos",
+      "component": "SPI Bus Protocol (SBOA621)",
+      "chunks_count": 10
     },
     {
-      "id": "A000066-datasheet.pdf_4",
-      "length": 815,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Interfaces  - **GPIO / Entradas y salidas digitales:** 14 pines digi"
+      "file_name": "sprugp1.pdf",
+      "category": "Protocolos",
+      "component": "KeyStone Architecture UART Peripheral (SPRUGP1)",
+      "chunks_count": 11
     },
     {
-      "id": "A000066-datasheet.pdf_5",
-      "length": 563,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] controlador/periférico ubicado en líneas A4/SDA y A5/SCL (con réplica "
+      "file_name": "RP-008307-DS-2-pico-datasheet.pdf",
+      "category": "Raspberry_Pi",
+      "component": "Raspberry Pi Pico Board",
+      "chunks_count": 12
     },
     {
-      "id": "A000066-datasheet.pdf_6",
-      "length": 937,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Pines importantes  ### Conector JANALOG | Pin | Función | Tipo | Des"
+      "file_name": "RP-008371-DS-1-rp2040-datasheet.pdf",
+      "category": "Raspberry_Pi",
+      "component": "RP2040 Microcontroller",
+      "chunks_count": 14
     },
     {
-      "id": "A000066-datasheet.pdf_7",
-      "length": 1232,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] ### Conector JDIGITAL | Pin | Función | Tipo | Descripción | |---|---|"
-    },
-    {
-      "id": "A000066-datasheet.pdf_8",
-      "length": 221,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] ### Encabezados ICSP - **ICSP:** Conector de 6 pines pasantes para pro"
-    },
-    {
-      "id": "A000066-datasheet.pdf_9",
-      "length": 464,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Aplicaciones  - **Iniciación a la electrónica y robótica (Maker / Ed"
-    },
-    {
-      "id": "A000066-datasheet.pdf_10",
-      "length": 664,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] # Limitaciones  - **Límites de tensión:** Tensión de entrada por pin V"
-    },
-    {
-      "id": "A000066-datasheet.pdf_11",
-      "length": 455,
-      "preview": "[Componente: Arduino UNO R3 | Categoría: Arduino] documento:** Las páginas 16 a 27 corresponden a la traducción idéntica"
+      "file_name": "RP-009085-KB-2-raspberry-pi-pico-c-sdk.pdf",
+      "category": "Raspberry_Pi",
+      "component": "Raspberry Pi Pico C/C++ SDK",
+      "chunks_count": 17
     }
   ]
 }
