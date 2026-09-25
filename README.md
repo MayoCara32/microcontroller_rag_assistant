@@ -35,7 +35,7 @@ Top-K Chunks Recuperados
    ↓
 Context Builder (Estructuración y Fuentes)
    ↓
-Gemini API (gemini-2.0-flash / google-genai)
+Gemini API (gemini-3.8-flash / google-genai)
    ↓
 Respuesta Generada y Fundamentada
 ```

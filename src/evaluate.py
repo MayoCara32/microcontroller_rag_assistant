@@ -87,30 +87,34 @@ def run_evaluation(
 
         retrieved_docs = extract_doc_names(results)
 
-        # 2. Generation con reintento para errores temporales 503 y 429
+        # 2. Generation (solo cuando se evalúa faithfulness)
         answer = ""
         context = ""
-        import time
-        max_gen_retries = 4
-        for attempt in range(max_gen_retries):
-            try:
-                gen_res = generator.generate_response(question=question, chunks=results)
-                answer = gen_res.get("answer", "")
-                context = gen_res.get("context", "")
-                break
-            except Exception as e:
-                err_str = str(e)
-                if ("429" in err_str or "RESOURCE_EXHAUSTED" in err_str) and attempt < max_gen_retries - 1:
-                    time.sleep(15.0 * (attempt + 1))
-                    continue
-                elif ("503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str) and attempt < max_gen_retries - 1:
-                    time.sleep(2.0 * (attempt + 1))
-                    continue
-                if verbose:
-                    print(f"  [Error en Generación]: {e}")
-                answer = f"Error en generación: {e}"
-                context = ""
-                break
+        if not skip_faithfulness:
+            import time
+            max_gen_retries = 4
+            for attempt in range(max_gen_retries):
+                try:
+                    gen_res = generator.generate_response(question=question, chunks=results)
+                    answer = gen_res.get("answer", "")
+                    context = gen_res.get("context", "")
+                    break
+                except Exception as e:
+                    err_str = str(e)
+                    if ("429" in err_str or "RESOURCE_EXHAUSTED" in err_str) and attempt < max_gen_retries - 1:
+                        time.sleep(15.0 * (attempt + 1))
+                        continue
+                    elif ("503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str) and attempt < max_gen_retries - 1:
+                        time.sleep(2.0 * (attempt + 1))
+                        continue
+                    if verbose:
+                        print(f"  [Error en Generación]: {e}")
+                    answer = f"Error en generación: {e}"
+                    context = ""
+                    break
+        else:
+            answer = "Generación omitida (modo evaluación de recuperación)."
+            context = ""
 
         # 3. Evaluation
         try:

@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     # Parámetros de Generación LLM (Día 13)
     LLM_PROVIDER: str = "google"
     OPENAI_API_KEY: Optional[str] = None
-    DEFAULT_LLM_MODEL: str = "gemini-2.0-flash"
+    DEFAULT_LLM_MODEL: str = "gemini-3.8-flash"
     GEMINI_MODEL: Optional[str] = None
     DEFAULT_TEMPERATURE: float = 0.95
     TEMPERATURE: Optional[float] = None

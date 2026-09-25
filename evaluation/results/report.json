@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-09-23T14:25:29.516170",
+  "timestamp": "2026-09-23T15:07:10.156866",
   "summary": {
-    "total_questions": 2,
-    "mean_precision": 0.75,
+    "total_questions": 3,
+    "mean_precision": 0.6111,
     "mean_recall": 1.0,
-    "mean_faithfulness": 0.5
+    "mean_faithfulness": 0.3333
   },
   "results": [
     {
@@ -21,7 +21,7 @@
         "A000066-datasheet.pdf",
         "A000067-datasheet.pdf"
       ],
-      "answer": "Error en generación: Falla en la generación de respuesta con Gemini: Error al generar respuesta con Gemini (modelo 'gemini-3.6-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 58.573934224s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '58s'}]}}",
+      "answer": "Error en generación: Falla en la generación de respuesta con Gemini: Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
       "details": {
         "precision": {
           "metric": "precision",
@@ -63,7 +63,7 @@
       "retrieved_documents": [
         "A000067-datasheet.pdf"
       ],
-      "answer": "Error en generación: Falla en la generación de respuesta con Gemini: Error al generar respuesta con Gemini (modelo 'gemini-3.6-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 5.142798183s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}",
+      "answer": "Error en generación: Falla en la generación de respuesta con Gemini: Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
       "details": {
         "precision": {
           "metric": "precision",
@@ -86,10 +86,58 @@
           "faithfulness_score": 0.0,
           "supported_claims": [],
           "unsupported_claims": [
-            "Fallo en la evaluación de fidelidad: Error al generar respuesta con Gemini (modelo 'gemini-3.6-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 33.684436269s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '33s'}]}}"
+            "Fallo en la evaluación de fidelidad: Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 9.572279065s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}"
           ],
           "partially_supported_claims": [],
-          "error": "Error al generar respuesta con Gemini (modelo 'gemini-3.6-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 33.684436269s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '33s'}]}}"
+          "error": "Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 9.572279065s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "category": "Arduino",
+      "question": "¿Cuál es el rango de voltaje de operación y la frecuencia máxima de reloj del microcontrolador ATmega328P?",
+      "retrieval_precision": 0.3333,
+      "retrieval_recall": 1.0,
+      "faithfulness": 0.0,
+      "expected_documents": [
+        "atmega328ds.pdf"
+      ],
+      "retrieved_documents": [
+        "atmega328ds.pdf",
+        "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf",
+        "sboa621.pdf"
+      ],
+      "answer": "Basado en el contexto proporcionado, las especificaciones del microcontrolador ATmega328P son las siguientes:\n\n*   **Rango de tensión de alimentación (estándar):** 1.8 V a 5.5 V.\n*   **Frecuencia máxima de reloj:** Hasta 20 MHz (lo que permite un rendimiento de hasta 20 MIPS).\n\n### Grados de velocidad según la tensión de alimentación:\nLa frecuencia máxima de reloj está directamente relacionada con el voltaje de operación:\n*   **De 0 a 4 MHz:** Requiere un rango de tensión de **1.8 V a 5.5 V**.\n*   **De 0 a 10 MHz:** Requiere un rango de tensión de **2.7 V a 5.5 V**.\n*   **De 0 a 20 MHz:** Requiere un rango de tensión de **4.5 V a 5.5 V**.\n\n**Advertencia técnica relacionada:**\nOperar a frecuencias de 16 MHz o 20 MHz requiere obligatoriamente una alimentación de al menos 4.5 V; por ejemplo, operar a 3.3 V con un cristal de 16 MHz viola las especificaciones de temporización garantizadas por el fabricante.\n\n---\n**Fuentes:**\n*   **Documento [1]:** atmega328ds.pdf (Categoría: Arduino - Limitaciones y Advertencias)\n*   **Documento [3]:** atmega328ds.pdf (Categoría: Arduino - Información general)\n*   **Documento [4]:** atmega328ds.pdf (Categoría: Arduino - Rangos Operativos Recomendados)",
+      "details": {
+        "precision": {
+          "metric": "precision",
+          "value": 0.3333,
+          "relevant_documents": [
+            "atmega328ds.pdf"
+          ],
+          "irrelevant_documents": [
+            "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf",
+            "sboa621.pdf"
+          ]
+        },
+        "recall": {
+          "metric": "recall",
+          "value": 1.0,
+          "found_documents": [
+            "atmega328ds.pdf"
+          ],
+          "missing_documents": []
+        },
+        "faithfulness": {
+          "metric": "faithfulness",
+          "faithfulness_score": 0.0,
+          "supported_claims": [],
+          "unsupported_claims": [
+            "Fallo en la evaluación de fidelidad: Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 53.024314329s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '53s'}]}}"
+          ],
+          "partially_supported_claims": [],
+          "error": "Error al generar respuesta con Gemini (modelo 'gemini-3.5-flash'): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 53.024314329s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '53s'}]}}"
         }
       }
     }

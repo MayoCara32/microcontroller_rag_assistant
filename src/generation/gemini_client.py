@@ -24,7 +24,7 @@ class GeminiClient:
         self.model_name = (
             model_name
             if model_name is not None
-            else (settings.resolved_llm_model or os.environ.get("GEMINI_MODEL") or os.environ.get("MODEL_NAME") or "gemini-2.0-flash")
+            else (settings.resolved_llm_model or os.environ.get("GEMINI_MODEL") or os.environ.get("MODEL_NAME") or "gemini-3.8-flash")
         )
         self.temperature = (
             temperature
@@ -66,18 +66,31 @@ class GeminiClient:
         target_model = model or self.model_name
         target_temp = temperature if temperature is not None else self.temperature
 
-        try:
-            from google.genai import types
-            config = types.GenerateContentConfig(temperature=target_temp)
-            response = self.client.models.generate_content(
-                model=target_model,
-                contents=prompt,
-                config=config
-            )
-        except Exception as e:
-            raise RuntimeError(
-                f"Error al generar respuesta con Gemini (modelo '{target_model}'): {str(e)}"
-            ) from e
+        import time
+        from google.genai import types
+        config = types.GenerateContentConfig(temperature=target_temp)
+
+        max_retries = 3
+        response = None
+        for attempt in range(max_retries):
+            try:
+                response = self.client.models.generate_content(
+                    model=target_model,
+                    contents=prompt,
+                    config=config
+                )
+                break
+            except Exception as e:
+                err_str = str(e)
+                if ("503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str) and attempt < max_retries - 1:
+                    time.sleep(2.0 * (attempt + 1))
+                    continue
+                if ("429" in err_str or "RESOURCE_EXHAUSTED" in err_str) and attempt < max_retries - 1:
+                    time.sleep(3.0 * (attempt + 1))
+                    continue
+                raise RuntimeError(
+                    f"Error al generar respuesta con Gemini (modelo '{target_model}'): {str(e)}"
+                ) from e
 
         if not response or not hasattr(response, "text") or response.text is None:
             raise RuntimeError("La API de Gemini devolvió una respuesta vacía o sin contenido de texto.")
