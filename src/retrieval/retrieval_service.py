@@ -22,6 +22,7 @@ class RetrievalService:
         self.vector_indexer = vector_indexer or VectorIndexer()
         self.use_hybrid = use_hybrid
 
+        self.dense_retriever = DenseRetriever(embedder=self.embedder, vector_indexer=self.vector_indexer)
         if retriever is not None:
             self.retriever = retriever
         elif use_hybrid:
@@ -53,7 +54,7 @@ class RetrievalService:
                 pass
             self.retriever = hybrid_engine
         else:
-            self.retriever = DenseRetriever(embedder=self.embedder, vector_indexer=self.vector_indexer)
+            self.retriever = self.dense_retriever
 
     def search(
         self,
@@ -84,11 +85,19 @@ class RetrievalService:
         # 2. Ejecutar la recuperación a través del Retriever
         k = top_k or self.settings.TOP_K_RETRIEVAL
         try:
-            raw_results = self.retriever.retrieve(
-                query=query.strip(),
-                top_k=k,
-                filters=filters
-            )
+            # Si existen filtros de metadatos, ejecutar directamente en ChromaDB mediante búsqueda vectorial restringida (where)
+            if filters:
+                raw_results = self.dense_retriever.retrieve(
+                    query=query.strip(),
+                    top_k=k,
+                    filters=filters
+                )
+            else:
+                raw_results = self.retriever.retrieve(
+                    query=query.strip(),
+                    top_k=k,
+                    filters=None
+                )
         except Exception as e:
             raise RuntimeError(
                 f"Falla durante la generación de embedding o búsqueda en ChromaDB: {str(e)}"

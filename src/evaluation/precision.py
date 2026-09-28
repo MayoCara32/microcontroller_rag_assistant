@@ -14,7 +14,10 @@ class RetrievalPrecisionEvaluator:
         """Normaliza el nombre de archivo a minúsculas y sin ruta para comparación confiable."""
         if not doc_name:
             return ""
-        return Path(doc_name.strip()).name.lower()
+        name = Path(doc_name.strip()).name.lower()
+        if name.endswith(".md"):
+            name = name[:-3] + ".pdf"
+        return name
 
     def evaluate(
         self,

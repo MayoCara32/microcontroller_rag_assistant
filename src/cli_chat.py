@@ -10,6 +10,8 @@ if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
 from src.retrieval.retrieval_service import RetrievalService
+from src.retrieval.query_analyzer import QueryAnalyzer
+from src.retrieval.filter_builder import MetadataFilterBuilder
 from src.generation.response_generator import ResponseGenerator
 
 
@@ -52,18 +54,43 @@ def display_search_results(results: List[Dict[str, Any]]) -> None:
 def display_debug_info(
     question: str,
     results: List[Dict[str, Any]],
-    gen_result: Dict[str, Any]
+    gen_result: Optional[Dict[str, Any]] = None,
+    analysis: Optional[Dict[str, Any]] = None,
+    filters: Optional[Dict[str, Any]] = None
 ) -> None:
-    """Muestra información detallada de depuración sin exponer claves ni credenciales."""
+    """Muestra información detallada y pedagógica de depuración sin exponer claves ni credenciales."""
+    import json
+    gen_data = gen_result or {}
     print("\n" + "=" * 40)
     print("MODO DEBUG")
     print("=" * 40)
     print(f"\nPREGUNTA:\n{question}\n")
 
+    if analysis is not None:
+        hw = analysis.get("hardware_family") or analysis.get("board") or "N/A"
+        comp = analysis.get("component") or "N/A"
+        print("Análisis:")
+        print(f"Hardware:\n{hw}")
+        print(f"Componente:\n{comp}")
+        print("\nFiltros generados:")
+        print(json.dumps(filters or {}, indent=2))
+        print(f"\nBúsqueda:\n{len(results)} documentos encontrados.\n")
+
     print("RESULTADOS RETRIEVAL:")
     if not results:
         print("  (Sin chunks recuperados)")
     else:
+        found_docs: List[str] = []
+        for r in results:
+            meta = r.get("metadata", {})
+            doc = meta.get("component") or meta.get("file_name") or meta.get("document") or "Desconocido"
+            if doc not in found_docs:
+                found_docs.append(doc)
+
+        print("Resultados:")
+        for idx, doc in enumerate(found_docs, start=1):
+            print(f"{idx}.\n{doc}\n")
+
         for r in results:
             meta = r.get("metadata", {})
             doc = meta.get("file_name") or meta.get("document") or "Desconocido"
@@ -74,10 +101,10 @@ def display_debug_info(
             print(f"Score / Distancia: {dist:.4f}")
             print("-" * 20)
 
-    print(f"\nCONTEXTO ENVIADO A GEMINI:\n{gen_result.get('context', '(Vacío)')}\n")
-    print(f"MODELO UTILIZADO:\n{gen_result.get('model', 'Desconocido')}\n")
-    print(f"TEMPERATURA:\n{gen_result.get('temperature', '0.95')}\n")
-    print(f"RESPUESTA:\n{gen_result.get('answer', '')}\n")
+    print(f"\nCONTEXTO ENVIADO A GEMINI:\n{gen_data.get('context', '(Vacío)')}\n")
+    print(f"MODELO UTILIZADO:\n{gen_data.get('model', 'Desconocido')}\n")
+    print(f"TEMPERATURA:\n{gen_data.get('temperature', '0.95')}\n")
+    print(f"RESPUESTA:\n{gen_data.get('answer', '')}\n")
     print("=" * 40 + "\n")
 
 
@@ -104,6 +131,9 @@ def run_cli_chat(
         print(f"[Error al inicializar servicio de recuperación]: {e}")
         return
 
+    analyzer = QueryAnalyzer()
+    filter_builder = MetadataFilterBuilder()
+
     generator: Optional[ResponseGenerator] = None
     if chat_mode:
         try:
@@ -127,14 +157,20 @@ def run_cli_chat(
             print("Saliendo de Microcontroller RAG Assistant.")
             break
 
+        # Análisis de intención y construcción de filtros (Día 16)
+        analysis = analyzer.analyze(user_input)
+        filters = filter_builder.build_from_analysis(analysis)
+
         if not chat_mode:
             # Modo recuperación pura (Día 12)
             print("\nSistema:")
             print("- generando embedding...")
             print("- buscando información...")
             try:
-                results = retriever.search(query=user_input)
+                results = retriever.search(query=user_input, filters=filters)
                 display_search_results(results)
+                if debug:
+                    display_debug_info(user_input, results, analysis=analysis, filters=filters)
             except FileNotFoundError as fnf_err:
                 print(f"\n[Error de Base Vectorial]: {fnf_err}\n")
             except RuntimeError as rt_err:
@@ -143,12 +179,12 @@ def run_cli_chat(
                 print(f"\n[Error Inesperado]: {err}\n")
             continue
 
-        # Modo CHAT RAG con Gemini (Día 13)
+        # Modo CHAT RAG con Gemini (Día 13) y Metadata Filtering (Día 16)
         print("\nBuscando información...\n")
 
         try:
-            # 1. Recuperación vectorial
-            results = retriever.search(query=user_input)
+            # 1. Recuperación vectorial con filtros de metadata
+            results = retriever.search(query=user_input, filters=filters)
 
             # Extraer documentos únicos encontrados
             found_docs: List[str] = []
@@ -191,9 +227,9 @@ def run_cli_chat(
 
             print("\n========================================\n")
 
-            # 4. Modo depuración opcional
+            # 4. Modo depuración educativo
             if debug:
-                display_debug_info(user_input, results, gen_result)
+                display_debug_info(user_input, results, gen_result=gen_result, analysis=analysis, filters=filters)
 
         except FileNotFoundError as fnf_err:
             print(f"\n[Error de Base Vectorial]: {fnf_err}\n")

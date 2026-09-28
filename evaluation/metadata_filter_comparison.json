@@ -1,0 +1,694 @@
+{
+  "total_queries": 20,
+  "without_filters": {
+    "mean_precision": 0.5683,
+    "mean_recall": 1.0
+  },
+  "with_filters": {
+    "mean_precision": 0.7,
+    "mean_recall": 0.95
+  },
+  "impact_summary": {
+    "precision_improvement_percentage": 23.17,
+    "recall_delta": -0.05,
+    "conclusion": "Metadata Filtering restringe el espacio de búsqueda documental eliminando falsos positivos inter-familias y mejorando la precisión sin comprometer la exhaustividad (recall)."
+  },
+  "detailed_comparisons": [
+    {
+      "id": 1,
+      "category": "Arduino",
+      "question": "¿Cuál es el voltaje de alimentación recomendado (Input Voltage) para la placa Arduino Uno R3?",
+      "expected_metadata": {
+        "hardware_family": "Arduino",
+        "board": "UNO",
+        "domain": "Power"
+      },
+      "filters_applied": {
+        "category": "Arduino"
+      },
+      "expected_documents": [
+        "A000066-datasheet.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "A000066-datasheet.pdf",
+          "A000067-datasheet.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "A000066-datasheet.pdf",
+          "A000067-datasheet.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 2,
+      "category": "Arduino",
+      "question": "¿Cuántos pines digitales de entrada/salida y cuántos canales PWM tiene la placa Arduino Mega 2560 Rev3?",
+      "expected_metadata": {
+        "hardware_family": "Arduino",
+        "board": "Mega",
+        "component": "PWM"
+      },
+      "filters_applied": {
+        "category": "Arduino"
+      },
+      "expected_documents": [
+        "A000067-datasheet.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "A000067-datasheet.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "A000067-datasheet.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 3,
+      "category": "Arduino",
+      "question": "¿Cuál es el rango de voltaje de operación y la frecuencia máxima de reloj del microcontrolador ATmega328P?",
+      "expected_metadata": {
+        "hardware_family": "Arduino",
+        "board": "UNO",
+        "domain": "Power"
+      },
+      "filters_applied": {
+        "category": "Arduino"
+      },
+      "expected_documents": [
+        "atmega328ds.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "atmega328ds.pdf",
+          "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf",
+          "sboa621.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "atmega328ds.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.6667,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 4,
+      "category": "Arduino",
+      "question": "¿Cuánta memoria Flash, SRAM y EEPROM posee el microcontrolador ATmega2560?",
+      "expected_metadata": {
+        "hardware_family": "Arduino",
+        "board": "Mega",
+        "domain": "Memory"
+      },
+      "filters_applied": {
+        "category": "Arduino"
+      },
+      "expected_documents": [
+        "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf",
+          "A000067-datasheet.pdf",
+          "atmega328ds.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "A000067-datasheet.pdf",
+          "atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf",
+          "atmega328ds.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 5,
+      "category": "Arduino",
+      "question": "¿Cuánta memoria Flash total tiene el microcontrolador ATmega328P y cuánto espacio reserva el bootloader en Arduino Uno?",
+      "expected_metadata": {
+        "hardware_family": "Arduino",
+        "board": "UNO",
+        "domain": "Memory"
+      },
+      "filters_applied": {
+        "category": "Arduino"
+      },
+      "expected_documents": [
+        "A000066-datasheet.pdf",
+        "atmega328ds.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "A000066-datasheet.pdf",
+          "A000067-datasheet.pdf",
+          "atmega328ds.pdf"
+        ],
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "atmega328ds.pdf",
+          "A000066-datasheet.pdf",
+          "A000067-datasheet.pdf"
+        ],
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 6,
+      "category": "ESP32",
+      "question": "¿Cuántos bits de resolución tiene el conversor ADC y cuántos canales SAR posee el SoC ESP32?",
+      "expected_metadata": {
+        "hardware_family": "ESP32",
+        "component": "ADC"
+      },
+      "filters_applied": {
+        "category": "ESP32"
+      },
+      "expected_documents": [
+        "esp32_datasheet_en.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "esp32_technical_reference_manual_en.pdf",
+          "note_1474198148.pdf",
+          "esp32_datasheet_en.pdf",
+          "esp32-pico_series_datasheet_en.pdf",
+          "RP-008371-DS-1-rp2040-datasheet.pdf"
+        ],
+        "precision": 0.2,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "esp32_datasheet_en.pdf",
+          "esp32_technical_reference_manual_en.pdf",
+          "esp32-pico_series_datasheet_en.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "precision_delta": 0.1333,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 7,
+      "category": "ESP32",
+      "question": "¿Qué aceleradores criptográficos por hardware incorpora el SoC ESP32 según su manual técnico de referencia?",
+      "expected_metadata": {
+        "hardware_family": "ESP32",
+        "domain": "Security"
+      },
+      "filters_applied": {
+        "category": "ESP32"
+      },
+      "expected_documents": [
+        "esp32_technical_reference_manual_en.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "esp32_technical_reference_manual_en.pdf",
+          "esp32_datasheet_en.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "esp32_technical_reference_manual_en.pdf",
+          "esp32_datasheet_en.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 8,
+      "category": "ESP32",
+      "question": "¿Qué capacidad de memoria Flash SPI y qué cristal integra internamente el encapsulado SiP ESP32-PICO?",
+      "expected_metadata": {
+        "hardware_family": "ESP32",
+        "board": "PICO",
+        "component": "SPI",
+        "domain": "Memory"
+      },
+      "filters_applied": {
+        "category": "ESP32"
+      },
+      "expected_documents": [
+        "esp32-pico_series_datasheet_en.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "esp32-pico_series_datasheet_en.pdf",
+          "RP-008307-DS-2-pico-datasheet.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "esp32-pico_series_datasheet_en.pdf",
+          "esp32_datasheet_en.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 9,
+      "category": "ESP32",
+      "question": "¿Cuáles son los requerimientos de corriente mínima de la fuente de alimentación de 3.3V del ESP32 según las guías de diseño de hardware?",
+      "expected_metadata": {
+        "hardware_family": "ESP32",
+        "domain": "Power"
+      },
+      "filters_applied": {
+        "category": "ESP32"
+      },
+      "expected_documents": [
+        "esp-hardware-design-guidelines-en-master-esp32.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "esp32_datasheet_en.pdf",
+          "esp-hardware-design-guidelines-en-master-esp32.pdf",
+          "esp32-pico_series_datasheet_en.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "esp-hardware-design-guidelines-en-master-esp32.pdf",
+          "esp32_datasheet_en.pdf",
+          "esp32-pico_series_datasheet_en.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 10,
+      "category": "ESP32",
+      "question": "¿Cuál es la frecuencia máxima del núcleo Xtensa LX6 dual-core en el microcontrolador ESP32?",
+      "expected_metadata": {
+        "hardware_family": "ESP32"
+      },
+      "filters_applied": {
+        "category": "ESP32"
+      },
+      "expected_documents": [
+        "esp32_datasheet_en.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "esp32_datasheet_en.pdf",
+          "esp32_technical_reference_manual_en.pdf",
+          "esp32-pico_series_datasheet_en.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "esp32_datasheet_en.pdf",
+          "esp32_technical_reference_manual_en.pdf",
+          "esp32-pico_series_datasheet_en.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 11,
+      "category": "Raspberry",
+      "question": "¿Cuál es el rango de voltaje de entrada aceptado en el pin VSYS de la placa Raspberry Pi Pico?",
+      "expected_metadata": {
+        "hardware_family": "Raspberry Pi",
+        "board": "Pico",
+        "domain": "Power"
+      },
+      "filters_applied": {
+        "category": "Raspberry_Pi"
+      },
+      "expected_documents": [
+        "RP-008307-DS-2-pico-datasheet.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "RP-008307-DS-2-pico-datasheet.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "RP-008307-DS-2-pico-datasheet.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 12,
+      "category": "Raspberry",
+      "question": "¿Cuántos núcleos ARM Cortex-M0+ y cuánta memoria SRAM en chip tiene el microcontrolador RP2040?",
+      "expected_metadata": {
+        "hardware_family": "Raspberry Pi",
+        "domain": "Memory"
+      },
+      "filters_applied": {
+        "category": "Raspberry_Pi"
+      },
+      "expected_documents": [
+        "RP-008371-DS-1-rp2040-datasheet.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "RP-008371-DS-1-rp2040-datasheet.pdf",
+          "RP-008307-DS-2-pico-datasheet.pdf",
+          "RP-009085-KB-2-raspberry-pi-pico-c-sdk.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "RP-008371-DS-1-rp2040-datasheet.pdf",
+          "RP-008307-DS-2-pico-datasheet.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "precision_delta": 0.1667,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 13,
+      "category": "Raspberry",
+      "question": "¿Qué encabezado y funciones de la biblioteca hardware del SDK de Raspberry Pi Pico se utilizan para inicializar y controlar los pines GPIO?",
+      "expected_metadata": {
+        "hardware_family": "Raspberry Pi",
+        "board": "Pico",
+        "component": "GPIO"
+      },
+      "filters_applied": {
+        "category": "Raspberry_Pi"
+      },
+      "expected_documents": [
+        "RP-009085-KB-2-raspberry-pi-pico-c-sdk.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "RP-009085-KB-2-raspberry-pi-pico-c-sdk.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "RP-009085-KB-2-raspberry-pi-pico-c-sdk.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 14,
+      "category": "Protocolos",
+      "question": "¿Cuáles son las velocidades máximas de transmisión definidas en la especificación I2C (UM10204) para Standard-mode y Fast-mode?",
+      "expected_metadata": {
+        "component": "I2C",
+        "domain": "Communication"
+      },
+      "filters_applied": {
+        "category": "Protocolos"
+      },
+      "expected_documents": [
+        "UM10204.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "UM10204.pdf",
+          "esp32_technical_reference_manual_en.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "UM10204.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.5,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 15,
+      "category": "Protocolos",
+      "question": "¿Qué valor de resistencia de terminación se requiere en los extremos de la línea física del bus CAN según la norma ISO 11898?",
+      "expected_metadata": {
+        "component": "CAN",
+        "domain": "Communication"
+      },
+      "filters_applied": {
+        "category": "Protocolos"
+      },
+      "expected_documents": [
+        "kb-canbus-en.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "kb-canbus-en.md",
+          "UM10204.pdf",
+          "sboa621.pdf"
+        ],
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "UM10204.pdf"
+        ],
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "precision_delta": -0.3333,
+      "recall_delta": -1.0
+    },
+    {
+      "id": 16,
+      "category": "Protocolos",
+      "question": "¿Cuáles son los códigos de función principales en el protocolo de aplicación MODBUS para lectura de registros holding y bobinas (coils)?",
+      "expected_metadata": {
+        "component": "MODBUS",
+        "domain": "Communication"
+      },
+      "filters_applied": {
+        "category": "Protocolos"
+      },
+      "expected_documents": [
+        "modbusprotocolspecification.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "modbusprotocolspecification.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "modbusprotocolspecification.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 17,
+      "category": "Protocolos",
+      "question": "¿Cómo se definen los cuatro modos de transmisión SPI según los valores de polaridad de reloj (CPOL) y fase de reloj (CPHA)?",
+      "expected_metadata": {
+        "component": "SPI",
+        "domain": "Communication"
+      },
+      "filters_applied": {
+        "category": "Protocolos"
+      },
+      "expected_documents": [
+        "sboa621.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "sboa621.pdf",
+          "atmega328ds.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "sboa621.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.5,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 18,
+      "category": "Drivers",
+      "question": "¿Cuál es el rango de voltaje de alimentación VCC y el voltaje de referencia del controlador PWM TL5001A-Q1 de Texas Instruments?",
+      "expected_metadata": {
+        "hardware_family": "Texas Instruments",
+        "component": "TL5001A-Q1",
+        "domain": "Power"
+      },
+      "filters_applied": {
+        "$and": [
+          {
+            "category": "Electronica"
+          },
+          {
+            "component": "TL5001A-Q1"
+          }
+        ]
+      },
+      "expected_documents": [
+        "tl5001a-q1.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "tl5001a-q1.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "tl5001a-q1.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.0,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 19,
+      "category": "Drivers",
+      "question": "¿Qué principios de conversión analógica a digital diferencian a un conversor ADC Flash de un conversor de aproximaciones sucesivas (SAR)?",
+      "expected_metadata": {
+        "component": "ADC",
+        "domain": "Electronics"
+      },
+      "filters_applied": {
+        "category": "Electronica"
+      },
+      "expected_documents": [
+        "note_1474198148.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "note_1474198148.pdf",
+          "esp32_technical_reference_manual_en.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "note_1474198148.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.5,
+      "recall_delta": 0.0
+    },
+    {
+      "id": 20,
+      "category": "Drivers",
+      "question": "¿Cómo afecta el valor del prescaler a la resolución temporal y a la frecuencia de desbordamiento en un temporizador de hardware (hardware timer)?",
+      "expected_metadata": {
+        "component": "Timers",
+        "domain": "Electronics"
+      },
+      "filters_applied": {
+        "category": "Electronica"
+      },
+      "expected_documents": [
+        "L6-Timers-and-Interrupts.pdf"
+      ],
+      "without_filters": {
+        "retrieved_documents": [
+          "L6-Timers-and-Interrupts.pdf",
+          "atmega328ds.pdf"
+        ],
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "with_filters": {
+        "retrieved_documents": [
+          "L6-Timers-and-Interrupts.pdf"
+        ],
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "precision_delta": 0.5,
+      "recall_delta": 0.0
+    }
+  ]
+}
