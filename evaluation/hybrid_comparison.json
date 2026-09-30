@@ -1,0 +1,342 @@
+[
+  {
+    "id": 1,
+    "query": "¿Qué es PWM?",
+    "type": "conceptual",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.25
+    },
+    "keyword": {
+      "precision": 0.2,
+      "recall": 0.25
+    },
+    "hybrid": {
+      "precision": 0.8,
+      "recall": 0.25
+    }
+  },
+  {
+    "id": 2,
+    "query": "¿Qué es el bus I2C?",
+    "type": "conceptual",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.75
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 0.75
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.75
+    }
+  },
+  {
+    "id": 3,
+    "query": "¿Qué es la comunicación SPI?",
+    "type": "conceptual",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.75
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.75
+    }
+  },
+  {
+    "id": 4,
+    "query": "¿Qué es un temporizador o timer?",
+    "type": "conceptual",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 5,
+    "query": "¿Qué es la memoria EEPROM en AVR?",
+    "type": "conceptual",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.67
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 0.67
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.67
+    }
+  },
+  {
+    "id": 6,
+    "query": "¿Cómo configurar UART ESP32?",
+    "type": "tecnica",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 7,
+    "query": "¿Cómo funciona el ADC en ATmega328P?",
+    "type": "tecnica",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.5
+    }
+  },
+  {
+    "id": 8,
+    "query": "¿Cómo usar interrupciones externas en RP2040?",
+    "type": "tecnica",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 0.75
+    },
+    "hybrid": {
+      "precision": 0.8,
+      "recall": 0.5
+    }
+  },
+  {
+    "id": 9,
+    "query": "Configuración de canal DMA en ESP32",
+    "type": "tecnica",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 0.75
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 10,
+    "query": "Modos de bajo consumo Deep Sleep ESP32",
+    "type": "tecnica",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 11,
+    "query": "¿Qué registro controla ADC en ATmega328P?",
+    "type": "exacta",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 12,
+    "query": "ADCSRA ATmega328P",
+    "type": "exacta",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 13,
+    "query": "GPIO34 ESP32 ADC",
+    "type": "exacta",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 14,
+    "query": "TWBR I2C prescaler",
+    "type": "exacta",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 15,
+    "query": "PORTB DDRB PINB ATmega328P",
+    "type": "exacta",
+    "dense": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  {
+    "id": 16,
+    "query": "TB6600 ENA DIR driver motor paso a paso",
+    "type": "driver",
+    "dense": {
+      "precision": 0.2,
+      "recall": 0.25
+    },
+    "keyword": {
+      "precision": 0.4,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 0.2,
+      "recall": 0.25
+    }
+  },
+  {
+    "id": 17,
+    "query": "L298N puente H motor DC control",
+    "type": "driver",
+    "dense": {
+      "precision": 0.6,
+      "recall": 0.5
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 0.6,
+      "recall": 0.5
+    }
+  },
+  {
+    "id": 18,
+    "query": "MAX485 RS485 transceiver comunicación",
+    "type": "driver",
+    "dense": {
+      "precision": 0.4,
+      "recall": 0.33
+    },
+    "keyword": {
+      "precision": 0.8,
+      "recall": 0.67
+    },
+    "hybrid": {
+      "precision": 0.4,
+      "recall": 0.33
+    }
+  },
+  {
+    "id": 19,
+    "query": "MPU6050 acelerómetro giroscopio I2C",
+    "type": "driver",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.5
+    }
+  },
+  {
+    "id": 20,
+    "query": "ESP32 Wi-Fi Bluetooth driver",
+    "type": "driver",
+    "dense": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "keyword": {
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "hybrid": {
+      "precision": 1.0,
+      "recall": 0.5
+    }
+  }
+]

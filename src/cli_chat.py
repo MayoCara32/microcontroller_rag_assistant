@@ -56,11 +56,10 @@ def display_debug_info(
     results: List[Dict[str, Any]],
     gen_result: Optional[Dict[str, Any]] = None,
     analysis: Optional[Dict[str, Any]] = None,
-    filters: Optional[Dict[str, Any]] = None
+    filters: Optional[Dict[str, Any]] = None,
+    retriever: Optional[Any] = None
 ) -> None:
-    """Muestra información detallada y pedagógica de depuración sin exponer claves ni credenciales."""
-    import json
-    gen_data = gen_result or {}
+    """Muestra información detallada y pedagógica de depuración de Hybrid Search."""
     print("\n" + "=" * 40)
     print("MODO DEBUG")
     print("=" * 40)
@@ -72,25 +71,42 @@ def display_debug_info(
         print("Análisis:")
         print(f"Hardware:\n{hw}")
         print(f"Componente:\n{comp}")
-        print("\nFiltros generados:")
-        print(json.dumps(filters or {}, indent=2))
-        print(f"\nBúsqueda:\n{len(results)} documentos encontrados.\n")
+
+    if retriever is not None and hasattr(retriever, "search"):
+        try:
+            dense_res = retriever.search(query=question, top_k=3, filters=filters, mode="dense")
+            if isinstance(dense_res, list) and dense_res:
+                print("DENSE RESULTS:")
+                for r in dense_res:
+                    meta = r.get("metadata", {})
+                    doc = meta.get("file_name") or meta.get("document") or "Desconocido"
+                    print(f"{doc}\nscore: {r.get('score', 0.0):.4f}\n")
+        except Exception:
+            pass
+
+        try:
+            keyword_res = retriever.search(query=question, top_k=3, filters=filters, mode="keyword")
+            if isinstance(keyword_res, list) and keyword_res:
+                print("KEYWORD RESULTS:")
+                for r in keyword_res:
+                    meta = r.get("metadata", {})
+                    doc = meta.get("file_name") or meta.get("document") or "Desconocido"
+                    print(f"{doc}\nscore: {r.get('score', 0.0):.4f}\n")
+        except Exception:
+            pass
+
+    print("FUSION:")
+    if results:
+        for r in results[:5]:
+            meta = r.get("metadata", {})
+            doc = meta.get("file_name") or meta.get("document") or "Desconocido"
+            h_score = r.get("hybrid_score") or r.get("score", 0.0)
+            print(f"Documento:\n{doc}\nHybrid score: {h_score:.4f}\n")
 
     print("RESULTADOS RETRIEVAL:")
     if not results:
         print("  (Sin chunks recuperados)")
     else:
-        found_docs: List[str] = []
-        for r in results:
-            meta = r.get("metadata", {})
-            doc = meta.get("component") or meta.get("file_name") or meta.get("document") or "Desconocido"
-            if doc not in found_docs:
-                found_docs.append(doc)
-
-        print("Resultados:")
-        for idx, doc in enumerate(found_docs, start=1):
-            print(f"{idx}.\n{doc}\n")
-
         for r in results:
             meta = r.get("metadata", {})
             doc = meta.get("file_name") or meta.get("document") or "Desconocido"
@@ -101,10 +117,11 @@ def display_debug_info(
             print(f"Score / Distancia: {dist:.4f}")
             print("-" * 20)
 
-    print(f"\nCONTEXTO ENVIADO A GEMINI:\n{gen_data.get('context', '(Vacío)')}\n")
-    print(f"MODELO UTILIZADO:\n{gen_data.get('model', 'Desconocido')}\n")
-    print(f"TEMPERATURA:\n{gen_data.get('temperature', '0.95')}\n")
-    print(f"RESPUESTA:\n{gen_data.get('answer', '')}\n")
+    gen_data = gen_result or {}
+    if gen_data:
+        print(f"\nCONTEXTO ENVIADO A GEMINI:\n{gen_data.get('context', '(Vacío)')}\n")
+        print(f"MODELO UTILIZADO:\n{gen_data.get('model', 'Desconocido')}\n")
+        print(f"RESPUESTA:\n{gen_data.get('answer', '')}\n")
     print("=" * 40 + "\n")
 
 
@@ -114,12 +131,7 @@ def run_cli_chat(
     debug: bool = False,
     chat_mode: Optional[bool] = None
 ) -> None:
-    """Inicia el bucle interactivo de terminal.
-
-    Por defecto ejecuta el modo CHAT RAG completo con Gemini. Si retrieval_service
-    se proporciona aislado sin generador y sin especificar chat_mode, preserva
-    modo de recuperación pura para compatibilidad hacia atrás.
-    """
+    """Inicia el bucle interactivo de terminal."""
     if chat_mode is None:
         chat_mode = not (retrieval_service is not None and response_generator is None)
 
@@ -157,36 +169,31 @@ def run_cli_chat(
             print("Saliendo de Microcontroller RAG Assistant.")
             break
 
-        # Análisis de intención y construcción de filtros (Día 16)
         analysis = analyzer.analyze(user_input)
         filters = filter_builder.build_from_analysis(analysis)
 
         if not chat_mode:
-            # Modo recuperación pura (Día 12)
             print("\nSistema:")
             print("- generando embedding...")
             print("- buscando información...")
             try:
-                results = retriever.search(query=user_input, filters=filters)
+                results = retriever.search(query=user_input, filters=filters, mode="hybrid")
                 display_search_results(results)
                 if debug:
-                    display_debug_info(user_input, results, analysis=analysis, filters=filters)
+                    display_debug_info(user_input, results, analysis=analysis, filters=filters, retriever=retriever)
             except FileNotFoundError as fnf_err:
                 print(f"\n[Error de Base Vectorial]: {fnf_err}\n")
             except RuntimeError as rt_err:
-                print(f"\n[Error de Recuperación/Embedding]: {rt_err}\n")
+                print(f"\n[Error de Recuperación/Generación]: {rt_err}\n")
             except Exception as err:
                 print(f"\n[Error Inesperado]: {err}\n")
             continue
 
-        # Modo CHAT RAG con Gemini (Día 13) y Metadata Filtering (Día 16)
         print("\nBuscando información...\n")
 
         try:
-            # 1. Recuperación vectorial con filtros de metadata
-            results = retriever.search(query=user_input, filters=filters)
+            results = retriever.search(query=user_input, filters=filters, mode="hybrid")
 
-            # Extraer documentos únicos encontrados
             found_docs: List[str] = []
             for res in results:
                 meta = res.get("metadata", {})
@@ -206,12 +213,10 @@ def run_cli_chat(
             else:
                 print("Ninguno")
 
-            # 2. Generación de respuesta con Gemini
             print("\nGenerando respuesta...\n")
             assert generator is not None
             gen_result = generator.generate_response(question=user_input, chunks=results)
 
-            # 3. Mostrar respuesta al usuario
             print("Respuesta:")
             print(gen_result.get("answer", ""))
             print()
@@ -227,9 +232,8 @@ def run_cli_chat(
 
             print("\n========================================\n")
 
-            # 4. Modo depuración educativo
             if debug:
-                display_debug_info(user_input, results, gen_result=gen_result, analysis=analysis, filters=filters)
+                display_debug_info(user_input, results, gen_result=gen_result, analysis=analysis, filters=filters, retriever=retriever)
 
         except FileNotFoundError as fnf_err:
             print(f"\n[Error de Base Vectorial]: {fnf_err}\n")

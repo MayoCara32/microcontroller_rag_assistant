@@ -44,6 +44,8 @@ class Settings(BaseSettings):
     TOP_K_RERANKED: int = 5
     SIMILARITY_THRESHOLD: float = 0.75
     HYBRID_ALPHA: float = 0.5
+    DENSE_WEIGHT: float = 0.7
+    KEYWORD_WEIGHT: float = 0.3
     ENFORCE_STRICT_ELECTRICAL_CHECK: bool = True
     ENFORCE_CITATION_VALIDATION: bool = True
 
